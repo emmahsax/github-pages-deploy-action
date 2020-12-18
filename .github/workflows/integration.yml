@@ -122,18 +122,18 @@ jobs:
       with:
         persist-credentials: false
 
-    - name: Install SSH Client
-      uses: webfactory/ssh-agent@v0.4.1
-      with:
-        ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY_PRIVATE }}
+    # - name: Install SSH Client
+    #   uses: webfactory/ssh-agent@v0.4.1
+    #   with:
+    #     ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY_PRIVATE }}
 
-    - name: Build and Deploy
-      uses: emmasaxforks/github-pages-deploy-action@emmasax4_updates
-      with:
-        ssh: true
-        branch: gh-pages-test-branch
-        folder: integration
-        target_folder: cat/montezuma3
+    # - name: Build and Deploy
+    #   uses: emmasaxforks/github-pages-deploy-action@emmasax4_updates
+    #   with:
+    #     ssh: true
+    #     branch: gh-pages-test-branch
+    #     folder: integration
+    #     target_folder: cat/montezuma3
 
     - name: Cleanup Generated Branch
       uses: dawidd6/action-delete-branch@v2.0.1
@@ -155,18 +155,18 @@ jobs:
       with:
         persist-credentials: false
 
-    - name: Install SSH Client
-      uses: webfactory/ssh-agent@v0.4.1
-      with:
-        ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY_PRIVATE }}
+    # - name: Install SSH Client
+    #   uses: webfactory/ssh-agent@v0.4.1
+    #   with:
+    #     ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY_PRIVATE }}
 
-    - name: Build and Deploy
-      uses: emmasaxforks/github-pages-deploy-action@emmasax4_updates
-      with:
-        ssh: true
-        branch: gh-pages-test-branch
-        folder: integration
-        target_folder: cat/montezuma4
+    # - name: Build and Deploy
+    #   uses: emmasaxforks/github-pages-deploy-action@emmasax4_updates
+    #   with:
+    #     ssh: true
+    #     branch: gh-pages-test-branch
+    #     folder: integration
+    #     target_folder: cat/montezuma4
 
     - name: Cleanup Generated Branch
       uses: dawidd6/action-delete-branch@v2.0.1
