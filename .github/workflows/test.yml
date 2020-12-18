@@ -1,0 +1,48 @@
+# This workflow tests that the project can build and tests can run
+name: Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check Out Code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Set Environment Variables
+      run: |
+        if [[ ${{ github.REF }} == 'refs/heads'* ]]; then # this is a branch, not a pull request
+          echo "BRANCH=$(echo ${{ github.REF }} | sed -E 's|refs/[a-zA-Z]+/||')" >> $GITHUB_ENV
+        else
+          echo "BRANCH=$(echo ${{ github.HEAD_REF }} | sed -E 's|refs/[a-zA-Z]+/||')" >> $GITHUB_ENV
+        fi
+    - name: Switch to Current Branch
+      run: git checkout ${{ env.BRANCH }}
+
+    - name: Set Up Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '15.4.0'
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: Install Yarn
+      run: npm install -g yarn
+
+    - name: Yarn Install and Test
+      run: |
+        yarn install
+        yarn build
+        yarn test
+        yarn lint
+        yarn format
+    - name: Upload CodeCov Report
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}

@@ -9,24 +9,16 @@
 </h1>
 
 <p align="center">
-  <a href="https://github.com/JamesIves/github-pages-deploy-action/actions">
-    <img src="https://github.com/JamesIves/github-pages-deploy-action/workflows/unit-tests/badge.svg">
+  <a href="https://github.com/emmasax4/github-pages-deploy-action/actions">
+    <img src="https://github.com/emmasax4/github-pages-deploy-action/workflows/Test/badge.svg">
   </a>
-  
-  <a href="https://github.com/JamesIves/github-pages-deploy-action/actions">
-    <img src="https://github.com/JamesIves/github-pages-deploy-action/workflows/integration-tests/badge.svg">
+
+  <a href="https://github.com/emmasax4/github-pages-deploy-action/actions">
+    <img src="https://github.com/emmasax4/github-pages-deploy-action/workflows/Integration/badge.svg">
   </a>
-  
-  <a href="https://codecov.io/gh/JamesIves/github-pages-deploy-action/branch/dev">
-    <img src="https://codecov.io/gh/JamesIves/github-pages-deploy-action/branch/dev/graph/badge.svg">
-  </a>
-  
-  <a href="https://github.com/JamesIves/github-pages-deploy-action/releases">
-    <img src="https://img.shields.io/github/v/release/JamesIves/github-pages-deploy-action.svg?logo=github">
-  </a>
-  
-  <a href="https://github.com/marketplace/actions/deploy-to-github-pages">
-    <img src="https://img.shields.io/badge/action-marketplace-blue.svg?logo=github&color=orange">
+
+  <a href="https://codecov.io/gh/emmasax4/github-pages-deploy-action/branch/main">
+    <img src="https://codecov.io/gh/emmasax4/github-pages-deploy-action/branch/main/graph/badge.svg">
   </a>
 </p>
 
@@ -62,12 +54,12 @@ jobs:
           npm run build
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: emmasax4/github-pages-deploy-action@main
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: build # The folder the action should deploy.
-          CLEAN: true # Automatically remove deleted files from the deploy branch
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages # The branch the action should deploy to.
+          folder: build # The folder the action should deploy.
+          clean: true # Automatically remove deleted files from the deploy branch
 ```
 
 If you'd like to make it so the workflow only triggers on push events to specific branches then you can modify the `on` section.
@@ -83,7 +75,7 @@ It's recommended that you use [Dependabot](https://dependabot.com/github-actions
 
 #### Install as a Node Module 📦
 
-If you'd like to use the functionality provided by this action in your own action you can install it using [yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/get-npm) by running the following commands. It's available on both the [npm](https://www.npmjs.com/package/@jamesives/github-pages-deploy-action) and [GitHub registry](https://github.com/JamesIves/github-pages-deploy-action/packages/229985). 
+If you'd like to use the functionality provided by this action in your own action you can install it using [yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/get-npm) by running the following commands. It's available on both the [npm](https://www.npmjs.com/package/@jamesives/github-pages-deploy-action) and [GitHub registry](https://github.com/JamesIves/github-pages-deploy-action/packages/229985).
 
 ```
 yarn add @jamesives/github-pages-deploy-action
@@ -114,7 +106,7 @@ run({
 });
 ```
 
-For more information regarding the [action interface please click here](https://github.com/JamesIves/github-pages-deploy-action/blob/dev/src/constants.ts#L7). 
+For more information regarding the [action interface please click here](https://github.com/JamesIves/github-pages-deploy-action/blob/dev/src/constants.ts#L7).
 
 ## Configuration 📁
 
@@ -126,34 +118,34 @@ One of the following deployment options must be configured.
 
 | Key            | Value Information                                                                                                                                                                                                                                                                                                                                                                                                                                              | Type             | Required |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | -------- |
-| `GITHUB_TOKEN` | In order for GitHub to trigger the rebuild of your page you must provide the action with the repository's provided GitHub token. This can be referenced in the workflow `yml` file by using `${{ secrets.GITHUB_TOKEN }}`. If you experience any issues with your changes not being reflected after the deployment it may be neccersary to use either the `SSH` or `ACCESS_TOKEN` options. | `secrets / with` | **Yes**  |
-| `SSH`          | You can configure the action to deploy using SSH by setting this option to `true`. For more information on how to add your ssh key pair please refer to the [Using a Deploy Key section of this README](https://github.com/JamesIves/github-pages-deploy-action/tree/dev#using-an-ssh-deploy-key-).                                                                                                                                                            | `with`           | **Yes**  |
-| `ACCESS_TOKEN` | Depending on the repository's permissions you may need to provide the action with a GitHub personal access token instead of the provided GitHub token in order to deploy. You can [learn more about how to generate one here](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). **This should be stored as a secret**.                                                                                                 | `secrets / with` | **Yes**  |
+| `github_token` | In order for GitHub to trigger the rebuild of your page you must provide the action with the repository's provided GitHub token. This can be referenced in the workflow `yml` file by using `${{ secrets.GITHUB_TOKEN }}`. If you experience any issues with your changes not being reflected after the deployment it may be neccersary to use either the `SSH` or `ACCESS_TOKEN` options. | `secrets / with` | **Yes**  |
+| `ssh`          | You can configure the action to deploy using SSH by setting this option to `true`. For more information on how to add your ssh key pair please refer to the [Using a Deploy Key section of this README](https://github.com/JamesIves/github-pages-deploy-action/tree/dev#using-an-ssh-deploy-key-).                                                                                                                                                            | `with`           | **Yes**  |
+| `access_token` | Depending on the repository's permissions you may need to provide the action with a GitHub personal access token instead of the provided GitHub token in order to deploy. You can [learn more about how to generate one here](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). **This should be stored as a secret**.                                                                                                 | `secrets / with` | **Yes**  |
 
 In addition to the deployment options you must also configure the following.
 
 | Key      | Value Information                                                                                                                                                                                                                                             | Type   | Required |
 | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | -------- |
-| `BRANCH` | This is the branch you wish to deploy to, for example `gh-pages` or `docs`.                                                                                                                                                                                   | `with` | **Yes**  |
-| `FOLDER` | The folder in your repository that you want to deploy. If your build script compiles into a directory named `build` you'd put it here. If you wish to deploy the root directory you can place a `.` here. You can also utilize absolute file paths by appending `~` to your folder path. | `with` | **Yes**  |
+| `branch` | This is the branch you wish to deploy to, for example `gh-pages` or `docs`.                                                                                                                                                                                   | `with` | **Yes**  |
+| `folder` | The folder in your repository that you want to deploy. If your build script compiles into a directory named `build` you'd put it here. If you wish to deploy the root directory you can place a `.` here. You can also utilize absolute file paths by appending `~` to your folder path. | `with` | **Yes**  |
 
 #### Optional Choices
 
 | Key                | Value Information                                                                                                                                                                                                                                                                                                                                     | Type   | Required |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | -------- |
-| `GIT_CONFIG_NAME`  | Allows you to customize the name that is attached to the git config which is used when pushing the deployment commits. If this is not included it will use the name in the GitHub context, followed by the name of the action.                                                                                                                     | `with` | **No**   |
-| `GIT_CONFIG_EMAIL` | Allows you to customize the email that is attached to the git config which is used when pushing the deployment commits. If this is not included it will use the email in the GitHub context, followed by a generic noreply GitHub email.                                                                                                           | `with` | **No**   |
-| `REPOSITORY_NAME`       | Allows you to specify a different repository path so long as you have permissions to push to it. This should be formatted like so: `JamesIves/github-pages-deploy-action`. You'll need to use an `ACCESS_TOKEN` for this configuration option to work properly.                                                                                                                                                                          | `with` | **No**   |
-| `TARGET_FOLDER`    | If you'd like to push the contents of the deployment folder into a specific directory on the deployment branch you can specify it here.                                                                                                                                                                                                               | `with` | **No**   |
-| `BASE_BRANCH`      | The base branch of your repository which you'd like to checkout prior to deploying. This defaults to the current commit [SHA](http://en.wikipedia.org/wiki/SHA-1) that triggered the build followed by `master` if it doesn't exist. This is useful for making deployments from another branch, and also may be necessary when using a scheduled job. | `with` | **No**   |
-| `COMMIT_MESSAGE`   | If you need to customize the commit message for an integration you can do so.                                                                                                                                                                                                                                                                         | `with` | **No**   |
-| `CLEAN`            | If your project generates hashed files on build you can use this option to automatically delete them from the deployment branch with each deploy. This option is turned on by default, and can be toggled off by setting it to `false`.                                                                                                                                              | `with` | **No**   |
-| `CLEAN_EXCLUDE`    | If you need to use `CLEAN` but you'd like to preserve certain files or folders you can use this option. This should be formatted as an array but stored as a string. For example: `'["filename.js", "folder"]'`                                                                                                                                       | `with` | **No**   |
-| `SINGLE_COMMIT`        | This option can be toggled to `true` if you'd prefer to have a single commit on the deployment branch instead of maintaining the full history. **Using this option will also cause any existing history to be wiped from the deployment branch**.                                                                                                                                            | `with` | **No**   |
-| `LFS`        | If toggled all files will be migrated from [Git LFS](https://git-lfs.github.com/) so they can be comitted to the deployment branch.                                                                                                                                            | `with` | **No**   |
-| `PRESERVE`        | Preserves and restores the workspace prior to deployment. This option is useful if you're modifying files in the worktree that aren't comitted to Git.                                                                                                                                            | `with` | **No**   |
-| `SILENT`        | Silences the action output preventing it from displaying git messages.                                                                                                                            | `with` | **No**   |
-| `WORKSPACE`        | This should point to where your project lives on the virtual machine. The GitHub Actions environment will set this for you. It is only necessary to set this variable if you're using the node module.                                                                                                                                               | `with` | **No**   |
+| `git_config_name`  | Allows you to customize the name that is attached to the git config which is used when pushing the deployment commits. If this is not included it will use the name in the GitHub context, followed by the name of the action.                                                                                                                     | `with` | **No**   |
+| `git_config_email` | Allows you to customize the email that is attached to the git config which is used when pushing the deployment commits. If this is not included it will use the email in the GitHub context, followed by a generic noreply GitHub email.                                                                                                           | `with` | **No**   |
+| `repository_name`       | Allows you to specify a different repository path so long as you have permissions to push to it. This should be formatted like so: `emmasax4/github-pages-deploy-action`. You'll need to use an `access_token` for this configuration option to work properly.                                                                                                                                                                          | `with` | **No**   |
+| `target_folder`    | If you'd like to push the contents of the deployment folder into a specific directory on the deployment branch you can specify it here.                                                                                                                                                                                                               | `with` | **No**   |
+| `base_branch`      | The base branch of your repository which you'd like to checkout prior to deploying. This defaults to the current commit [SHA](http://en.wikipedia.org/wiki/SHA-1) that triggered the build followed by `master` if it doesn't exist. This is useful for making deployments from another branch, and also may be necessary when using a scheduled job. | `with` | **No**   |
+| `commit_message`   | If you need to customize the commit message for an integration you can do so.                                                                                                                                                                                                                                                                         | `with` | **No**   |
+| `clean`            | If your project generates hashed files on build you can use this option to automatically delete them from the deployment branch with each deploy. This option can be toggled on by setting it to `true`.                                                                                                                                              | `with` | **No**   |
+| `clean_exclude`    | If you need to use `CLEAN` but you'd like to preserve certain files or folders you can use this option. This should be formatted as an array but stored as a string. For example: `'["filename.js", "folder"]'`                                                                                                                                       | `with` | **No**   |
+| `single_commit`        | This option can be toggled to `true` if you'd prefer to have a single commit on the deployment branch instead of maintaining the full history. **Using this option will also cause any existing history to be wiped from the deployment branch**.                                                                                                                                            | `with` | **No**   |
+| `lfs`        | If toggled all files will be migrated from [Git LFS](https://git-lfs.github.com/) so they can be comitted to the deployment branch.                                                                                                                                            | `with` | **No**   |
+| `preserve`        | Preserves and restores the workspace prior to deployment. This option is useful if you're modifying files in the worktree that aren't comitted to Git.                                                                                                                                            | `with` | **No**   |
+| `silent`        | Silences the action output preventing it from displaying git messages.                                                                                                                            | `with` | **No**   |
+| `workspace`        | This should point to where your project lives on the virtual machine. The GitHub Actions environment will set this for you. It is only neccersary to set this variable if you're using the node module.                                                                                                                                               | `with` | **No**   |
 
 With the action correctly configured you should see the workflow trigger the deployment under the configured conditions.
 
@@ -188,11 +180,11 @@ With this configured you must add the `ssh-agent` step to your workflow and set 
     ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
 - name: Deploy 🚀
-  uses: JamesIves/github-pages-deploy-action@3.7.1
+  uses: emmasax4/github-pages-deploy-action@main
   with:
-    SSH: true
-    BRANCH: gh-pages
-    FOLDER: site
+    ssh: true
+    branch: gh-pages
+    folder: site
 ```
 
 <details><summary>You can view a full example of this here.</summary>
@@ -219,18 +211,18 @@ jobs:
           npm run build
 
       - name: Install SSH Client 🔑
-        uses: webfactory/ssh-agent@v0.4.1 # This step installs the ssh client into the workflow run. There's many options available for this on the action marketplace.
+        uses: webfactory/ssh-agent@v0.2.0 # This step installs the ssh client into the workflow run. There's many options available for this on the action marketplace.
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: emmasax4/github-pages-deploy-action@main
         with:
-          BASE_BRANCH: master
-          BRANCH: gh-pages
-          FOLDER: build
-          CLEAN: true
-          SSH: true # SSH must be set to true so the deploy action knows which protocol to deploy with.
+          base_branch: master
+          branch: gh-pages
+          folder: build
+          clean: true
+          ssh: true # SSH must be set to true so the deploy action knows which protocol to deploy with.
 ```
 
 </p>
@@ -291,11 +283,11 @@ jobs:
           name: site
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: emmasax4/github-pages-deploy-action@main
         with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: "site" # The deployment folder should match the name of the artifact. Even though our project builds into the 'build' folder the artifact name of 'site' must be placed here.
+          access_token: ${{ secrets.ACCESS_TOKEN }}
+          branch: gh-pages
+          folder: "site" # The deployment folder should match the name of the artifact. Even though our project builds into the 'build' folder the artifact name of 'site' must be placed here.
 ```
 
 </p>
@@ -313,7 +305,7 @@ If you use a [container](https://help.github.com/en/actions/automating-your-work
     apt-get update && apt-get install -y rsync
 
 - name: Deploy 🚀
-  uses: JamesIves/github-pages-deploy-action@3.7.1
+  uses: emmasax4/github-pages-deploy-action@main
 ```
 
 ---
