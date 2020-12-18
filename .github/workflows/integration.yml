@@ -1,202 +1,221 @@
-name: integration-tests
+name: Integration
+
 on:
-  schedule:
-    - cron: 30 15 * * 0-6
   push:
-    tags-ignore:
-      - '*.*'
-    branches:
-      - dev
-      - releases/v3
+    branches: [ main ]
 
 jobs:
   # Deploys using checkout@v1 with an ACCESS_TOKEN.
-  integration-checkout-v1:
+  checkout-v1:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
+    - name: Check Out Code
+      uses: actions/checkout@v1
+      with:
+        fetch-depth: 0
 
-      - name: Build and Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: integration
-          BASE_BRANCH: dev
-          TARGET_FOLDER: cat/montezuma
-          GIT_CONFIG_NAME: Montezuma
-          GIT_CONFIG_EMAIL: montezuma@jamesiv.es
+    - name: Build and Deploy
+      uses: emmasax4/github-pages-deploy-action@main
+      with:
+        access_token: ${{ secrets.DEPLOY_ACCESS_TOKEN }}
+        branch: gh-pages-test-branch
+        folder: integration
+        target_folder: cat/montezuma
+        git_config_name: Montezuma
+        git_config_email: montezuma@jamesiv.es
 
-      - name: Cleanup Generated Branch
-        uses: dawidd6/action-delete-branch@v2.0.1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branches: gh-pages
+    - name: Cleanup Generated Branch
+      uses: dawidd6/action-delete-branch@v2.0.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branches: gh-pages-test-branch
 
   # Deploys using checkout@v2 with a GITHUB_TOKEN.
-  integration-checkout-v2:
-    needs: integration-checkout-v1
+  checkout-v2:
+    needs: checkout-v1
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+    - name: Check Out Code
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
 
-      - name: Build and Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: integration
-          BASE_BRANCH: dev
-          TARGET_FOLDER: cat/montezuma2
+    - name: Build and Deploy
+      uses: emmasax4/github-pages-deploy-action@main
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: gh-pages-test-branch
+        folder: integration
+        target_folder: cat/montezuma2
 
-      - name: Cleanup Generated Branch
-        uses: dawidd6/action-delete-branch@v2.0.1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branches: gh-pages
+    - name: Cleanup Generated Branch
+      uses: dawidd6/action-delete-branch@v2.0.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branches: gh-pages-test-branch
 
+  # Deploys using checkout@v2 with fetch-depth to 0 with a GITHUB_TOKEN.
+  checkout-v2-fetch-depth-0:
+    needs: checkout-v2
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check Out Code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Build and Deploy
+      uses: emmasax4/github-pages-deploy-action@main
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: gh-pages-test-branch
+        folder: integration
+        target_folder: cat/montezuma2
+
+    - name: Cleanup Generated Branch
+      uses: dawidd6/action-delete-branch@v2.0.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branches: gh-pages-test-branch
 
   # Deploys using a container that requires you to install rsync.
-  integration-container:
-    needs: integration-checkout-v2
+  container:
+    needs: checkout-v2-fetch-depth-0
     runs-on: ubuntu-latest
     container:
-      image: ruby:2.6
+      image: ruby:2.7
       env:
         LANG: C.UTF-8
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+    - name: Check Out Code
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
 
-      - name: Install rsync
-        run: |
-          apt-get update && apt-get install -y rsync
+    - name: Install rsync
+      run: |
+        apt-get update && apt-get install -y rsync
 
-      - name: Build and Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: integration
-          BASE_BRANCH: dev
-          TARGET_FOLDER: cat/montezuma2
+    - name: Build and Deploy
+      uses: emmasax4/github-pages-deploy-action@main
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: gh-pages-test-branch
+        folder: integration
+        target_folder: cat/montezuma2
 
-      - name: Cleanup Generated Branch
-        uses: dawidd6/action-delete-branch@v2.0.1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branches: gh-pages
+    - name: Cleanup Generated Branch
+      uses: dawidd6/action-delete-branch@v2.0.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branches: gh-pages-test-branch
 
   # Deploys using an SSH key.
-  integration-ssh:
-    needs: integration-container
+  ssh:
+    needs: container
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+    - name: Check Out Code
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
 
-      - name: Install SSH Client
-        uses: webfactory/ssh-agent@v0.4.1
-        with:
-          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+    - name: Install SSH Client
+      uses: webfactory/ssh-agent@v0.4.1
+      with:
+        ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY_PRIVATE }}
 
-      - name: Build and Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          SSH: true
-          BRANCH: gh-pages
-          FOLDER: integration
-          BASE_BRANCH: dev
-          TARGET_FOLDER: cat/montezuma3
+    - name: Build and Deploy
+      uses: emmasax4/github-pages-deploy-action@main
+      with:
+        ssh: true
+        branch: gh-pages-test-branch
+        folder: integration
+        target_folder: cat/montezuma3
 
-      - name: Cleanup Generated Branch
-        uses: dawidd6/action-delete-branch@v2.0.1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branches: gh-pages
+    - name: Cleanup Generated Branch
+      uses: dawidd6/action-delete-branch@v2.0.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branches: gh-pages-test-branch
 
   # Deploys using a custom env.
-  integration-env:
-    needs: integration-ssh
+  env:
+    needs: ssh
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v1.4.4
-        with:
-          node-version: '10.x'
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
 
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+    - name: Check Out Code
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
 
-      - name: Install SSH Client
-        uses: webfactory/ssh-agent@v0.4.1
-        with:
-          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+    - name: Install SSH Client
+      uses: webfactory/ssh-agent@v0.4.1
+      with:
+        ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY_PRIVATE }}
 
-      - name: Build and Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          SSH: true
-          BRANCH: gh-pages
-          FOLDER: integration
-          BASE_BRANCH: dev
-          TARGET_FOLDER: cat/montezuma4
+    - name: Build and Deploy
+      uses: emmasax4/github-pages-deploy-action@main
+      with:
+        ssh: true
+        branch: gh-pages-test-branch
+        folder: integration
+        target_folder: cat/montezuma4
 
-      - name: Cleanup Generated Branch
-        uses: dawidd6/action-delete-branch@v2.0.1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branches: gh-pages
+    - name: Cleanup Generated Branch
+      uses: dawidd6/action-delete-branch@v2.0.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branches: gh-pages-test-branch
 
   # Deploys using the CLEAN option.
-  integration-clean:
-    needs: [integration-checkout-v1, integration-checkout-v2, integration-container, integration-ssh, integration-env]
+  clean:
+    needs: env
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+    - name: Check Out Code
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
 
-      - name: Build and Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: integration
-          BASE_BRANCH: dev
-          CLEAN: true
+    - name: Build and Deploy
+      uses: emmasax4/github-pages-deploy-action@main
+      with:
+        access_token: ${{ secrets.DEPLOY_ACCESS_TOKEN }}
+        branch: gh-pages-test-branch
+        folder: integration
+        clean: true
+
+    - name: Cleanup Generated Branch
+      uses: dawidd6/action-delete-branch@v2.0.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branches: gh-pages-test-branch
 
   # Deploys to a branch that doesn't exist with SINGLE_COMMIT.
-  integration-branch-creation:
-    needs: integration-clean
+  branch-creation:
+    needs: clean
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+    - name: Check Out Code
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
 
-      - name: Build and Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: integration-test-delete-prod
-          FOLDER: integration
-          BASE_BRANCH: dev
-          SINGLE_COMMIT: true
+    - name: Build and Deploy
+      uses: emmasax4/github-pages-deploy-action@main
+      with:
+        access_token: ${{ secrets.DEPLOY_ACCESS_TOKEN }}
+        branch: gh-pages-test-branch
+        folder: integration
+        single_commit: true
 
-      - name: Cleanup Generated Branch
-        uses: dawidd6/action-delete-branch@v2.0.1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branches: integration-test-delete-prod
+    - name: Cleanup Generated Branch
+      uses: dawidd6/action-delete-branch@v2.0.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branches: gh-pages-test-branch

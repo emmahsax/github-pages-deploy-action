@@ -15,7 +15,7 @@ assets/CNAME
 lib
 
 ## Registry
-package-lock.json
+# package-lock.json
 yarn-error.log
 
 ## SSH

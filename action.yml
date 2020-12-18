@@ -3,7 +3,7 @@ description: 'This action will handle the deployment process of your project to 
 author: 'James Ives <iam@jamesiv.es>'
 runs:
   using: 'node12'
-  main: 'lib/main.js'
+  main: 'dist/index.js'
 branding:
   icon: 'git-commit'
   color: 'orange'
@@ -24,7 +24,7 @@ inputs:
     description: 'This is the branch you wish to deploy to, for example gh-pages or docs.'
     required: true
 
-  FOLDER: 
+  FOLDER:
     description: 'The folder in your repository that you want to deploy. If your build script compiles into a directory named build you would put it here. Folder paths cannot have a leading / or ./. If you wish to deploy the root directory you can place a . here.'
     required: true
 
@@ -68,7 +68,7 @@ inputs:
   SINGLE_COMMIT:
     description: "This option can be used if you'd prefer to have a single commit on the deployment branch instead of maintaining the full history."
     required: false
-  
+
   LFS:
     description: "Migrates files from Git LFS so they can be comitted to the deployment branch."
     required: false

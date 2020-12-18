@@ -18,16 +18,6 @@ export default async function run(
   let status: Status = Status.RUNNING
 
   try {
-    info(`
-    GitHub Pages Deploy Action 🚀
-
-    🚀 Getting Started Guide: https://github.com/marketplace/actions/deploy-to-github-pages
-    ❓ Discussions / Q&A: https://github.com/JamesIves/github-pages-deploy-action/discussions
-    🔧 Report a Bug: https://github.com/JamesIves/github-pages-deploy-action/issues
-
-    📣 Maintained by James Ives: https://jamesiv.es
-    💖 Support: https://github.com/sponsors/JamesIves`)
-
     info('Checking configuration and starting deployment… 🚦')
 
     const settings: ActionInterface = {

@@ -4,7 +4,7 @@ import {isNullOrUndefined} from './util'
 
 const {pusher, repository} = github.context.payload
 
-/* For more information please refer to the README: https://github.com/JamesIves/github-pages-deploy-action */
+/* For more information please refer to the README: https://github.com/emmasax4/github-pages-deploy-action */
 export interface ActionInterface {
   /** Deployment access token. */
   accessToken?: string | null
@@ -76,55 +76,55 @@ export interface NodeActionInterface {
 
 /* Required action data that gets initialized when running within the GitHub Actions environment. */
 export const action: ActionInterface = {
-  accessToken: getInput('ACCESS_TOKEN'),
-  baseBranch: getInput('BASE_BRANCH'),
-  folder: getInput('FOLDER'),
-  branch: getInput('BRANCH'),
-  commitMessage: getInput('COMMIT_MESSAGE'),
-  clean: !isNullOrUndefined(getInput('CLEAN'))
-    ? getInput('CLEAN').toLowerCase() === 'true'
+  accessToken: getInput('access_token'),
+  baseBranch: getInput('base_branch'),
+  folder: getInput('folder'),
+  branch: getInput('branch'),
+  commitMessage: getInput('commit_message'),
+  clean: !isNullOrUndefined(getInput('clean'))
+    ? getInput('clean').toLowerCase() === 'true'
     : false,
-  cleanExclude: getInput('CLEAN_EXCLUDE'),
+  cleanExclude: getInput('clean_exclude'),
   defaultBranch: process.env.GITHUB_SHA ? process.env.GITHUB_SHA : 'master',
   isTest: process.env.UNIT_TEST
     ? process.env.UNIT_TEST.toLowerCase() === 'true'
     : false,
-  lfs: !isNullOrUndefined(getInput('LFS'))
-    ? getInput('LFS').toLowerCase() === 'true'
+  lfs: !isNullOrUndefined(getInput('lfs'))
+    ? getInput('lfs').toLowerCase() === 'true'
     : false,
-  email: !isNullOrUndefined(getInput('GIT_CONFIG_EMAIL'))
-    ? getInput('GIT_CONFIG_EMAIL')
+  email: !isNullOrUndefined(getInput('git_config_email'))
+    ? getInput('git_config_email')
     : pusher && pusher.email
     ? pusher.email
     : `${
         process.env.GITHUB_ACTOR || 'github-pages-deploy-action'
       }@users.noreply.github.com`,
-  gitHubToken: getInput('GITHUB_TOKEN'),
-  name: !isNullOrUndefined(getInput('GIT_CONFIG_NAME'))
-    ? getInput('GIT_CONFIG_NAME')
+  gitHubToken: getInput('github_token'),
+  name: !isNullOrUndefined(getInput('git_config_name'))
+    ? getInput('git_config_name')
     : pusher && pusher.name
     ? pusher.name
     : process.env.GITHUB_ACTOR
     ? process.env.GITHUB_ACTOR
     : 'GitHub Pages Deploy Action',
-  preserve: !isNullOrUndefined(getInput('PRESERVE'))
-    ? getInput('PRESERVE').toLowerCase() === 'true'
+  preserve: !isNullOrUndefined(getInput('preserve'))
+    ? getInput('preserve').toLowerCase() === 'true'
     : false,
-  repositoryName: !isNullOrUndefined(getInput('REPOSITORY_NAME'))
-    ? getInput('REPOSITORY_NAME')
+  repositoryName: !isNullOrUndefined(getInput('repository_name'))
+    ? getInput('repository_name')
     : repository && repository.full_name
     ? repository.full_name
     : process.env.GITHUB_REPOSITORY,
-  singleCommit: !isNullOrUndefined(getInput('SINGLE_COMMIT'))
-    ? getInput('SINGLE_COMMIT').toLowerCase() === 'true'
+  singleCommit: !isNullOrUndefined(getInput('single_commit'))
+    ? getInput('single_commit').toLowerCase() === 'true'
     : false,
-  silent: !isNullOrUndefined(getInput('SILENT'))
-    ? getInput('SILENT').toLowerCase() === 'true'
+  silent: !isNullOrUndefined(getInput('silent'))
+    ? getInput('silent').toLowerCase() === 'true'
     : false,
-  ssh: !isNullOrUndefined(getInput('SSH'))
-    ? getInput('SSH').toLowerCase() === 'true'
+  ssh: !isNullOrUndefined(getInput('ssh'))
+    ? getInput('ssh').toLowerCase() === 'true'
     : false,
-  targetFolder: getInput('TARGET_FOLDER'),
+  targetFolder: getInput('target_folder'),
   workspace: process.env.GITHUB_WORKSPACE || ''
 }
 
