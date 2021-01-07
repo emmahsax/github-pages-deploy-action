@@ -42,6 +42,7 @@ jobs:
         yarn test
         yarn lint
         yarn format
+
     - name: Upload CodeCov Report
       uses: codecov/codecov-action@v1
       with:
