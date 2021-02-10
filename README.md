@@ -30,6 +30,16 @@
   <img src="https://github.com/JamesIves/github-pages-deploy-action/raw/dev/assets/screenshot.png">
 </p>
 
+## Archival Notice
+
+This repository has been archived and designated as read-only. From GitHub's documentation:
+
+> This will make the emmasax4/github-pages-deploy-action repository, issues, pull requests, labels, milestones, projects, wiki, releases, commits, tags, branches, reactions and comments read-only and disable any future comments. The repository can still be forked.
+
+For a similar GitHub Action that is _not_ archived, please visit the source of this project: https://github.com/JamesIves/github-pages-deploy-action.
+
+To unarchive this repository at any time, please reach out to me at https://emmasax4.com/contact-me/.
+
 ## Getting Started :airplane:
 
 You can include the action in your workflow to trigger on any event that [GitHub actions supports](https://help.github.com/en/articles/events-that-trigger-workflows). If the remote branch that you wish to deploy to doesn't already exist the action will create it for you. Your workflow will also need to include the `actions/checkout` step before this workflow runs in order for the deployment to work.
