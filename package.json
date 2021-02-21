@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/emmasax4/github-pages-deploy-action.git"
+    "url": "git+https://github.com/emmahsax/github-pages-deploy-action.git"
   },
   "bugs": {
-    "url": "https://github.com/emmasax4/github-pages-deploy-action/issues"
+    "url": "https://github.com/emmahsax/github-pages-deploy-action/issues"
   },
-  "homepage": "https://github.com/emmasax4/github-pages-deploy-action",
+  "homepage": "https://github.com/emmahsax/github-pages-deploy-action",
   "keywords": [
     "actions",
     "node",

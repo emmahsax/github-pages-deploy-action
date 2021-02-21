@@ -9,16 +9,16 @@
 </h1>
 
 <p align="center">
-  <a href="https://github.com/emmasax4/github-pages-deploy-action/actions">
-    <img src="https://github.com/emmasax4/github-pages-deploy-action/workflows/Test/badge.svg">
+  <a href="https://github.com/emmahsax/github-pages-deploy-action/actions">
+    <img src="https://github.com/emmahsax/github-pages-deploy-action/workflows/Test/badge.svg">
   </a>
 
-  <a href="https://github.com/emmasax4/github-pages-deploy-action/actions">
-    <img src="https://github.com/emmasax4/github-pages-deploy-action/workflows/Integration/badge.svg">
+  <a href="https://github.com/emmahsax/github-pages-deploy-action/actions">
+    <img src="https://github.com/emmahsax/github-pages-deploy-action/workflows/Integration/badge.svg">
   </a>
 
-  <a href="https://codecov.io/gh/emmasax4/github-pages-deploy-action/branch/main">
-    <img src="https://codecov.io/gh/emmasax4/github-pages-deploy-action/branch/main/graph/badge.svg">
+  <a href="https://codecov.io/gh/emmahsax/github-pages-deploy-action/branch/main">
+    <img src="https://codecov.io/gh/emmahsax/github-pages-deploy-action/branch/main/graph/badge.svg">
   </a>
 </p>
 
@@ -34,11 +34,11 @@
 
 This repository has been archived and designated as read-only. From GitHub's documentation:
 
-> This will make the emmasax4/github-pages-deploy-action repository, issues, pull requests, labels, milestones, projects, wiki, releases, commits, tags, branches, reactions and comments read-only and disable any future comments. The repository can still be forked.
+> This will make the emmahsax/github-pages-deploy-action repository, issues, pull requests, labels, milestones, projects, wiki, releases, commits, tags, branches, reactions and comments read-only and disable any future comments. The repository can still be forked.
 
 For a similar GitHub Action that is _not_ archived, please visit the source of this project: https://github.com/JamesIves/github-pages-deploy-action.
 
-To unarchive this repository at any time, please reach out to me at https://emmasax4.com/contact-me/.
+To unarchive this repository at any time, please reach out to me at https://emmasax.com/contact-me/.
 
 ## Getting Started :airplane:
 
@@ -64,7 +64,7 @@ jobs:
           npm run build
 
       - name: Deploy 🚀
-        uses: emmasax4/github-pages-deploy-action@main
+        uses: emmahsax/github-pages-deploy-action@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages # The branch the action should deploy to.
@@ -145,7 +145,7 @@ In addition to the deployment options you must also configure the following.
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | -------- |
 | `git_config_name`  | Allows you to customize the name that is attached to the git config which is used when pushing the deployment commits. If this is not included it will use the name in the GitHub context, followed by the name of the action.                                                                                                                     | `with` | **No**   |
 | `git_config_email` | Allows you to customize the email that is attached to the git config which is used when pushing the deployment commits. If this is not included it will use the email in the GitHub context, followed by a generic noreply GitHub email.                                                                                                           | `with` | **No**   |
-| `repository_name`       | Allows you to specify a different repository path so long as you have permissions to push to it. This should be formatted like so: `emmasax4/github-pages-deploy-action`. You'll need to use an `access_token` for this configuration option to work properly.                                                                                                                                                                          | `with` | **No**   |
+| `repository_name`       | Allows you to specify a different repository path so long as you have permissions to push to it. This should be formatted like so: `emmahsax/github-pages-deploy-action`. You'll need to use an `access_token` for this configuration option to work properly.                                                                                                                                                                          | `with` | **No**   |
 | `target_folder`    | If you'd like to push the contents of the deployment folder into a specific directory on the deployment branch you can specify it here.                                                                                                                                                                                                               | `with` | **No**   |
 | `base_branch`      | The base branch of your repository which you'd like to checkout prior to deploying. This defaults to the current commit [SHA](http://en.wikipedia.org/wiki/SHA-1) that triggered the build followed by `master` if it doesn't exist. This is useful for making deployments from another branch, and also may be necessary when using a scheduled job. | `with` | **No**   |
 | `commit_message`   | If you need to customize the commit message for an integration you can do so.                                                                                                                                                                                                                                                                         | `with` | **No**   |
@@ -190,7 +190,7 @@ With this configured you must add the `ssh-agent` step to your workflow and set 
     ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
 - name: Deploy 🚀
-  uses: emmasax4/github-pages-deploy-action@main
+  uses: emmahsax/github-pages-deploy-action@main
   with:
     ssh: true
     branch: gh-pages
@@ -226,7 +226,7 @@ jobs:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Deploy 🚀
-        uses: emmasax4/github-pages-deploy-action@main
+        uses: emmahsax/github-pages-deploy-action@main
         with:
           base_branch: master
           branch: gh-pages
@@ -293,7 +293,7 @@ jobs:
           name: site
 
       - name: Deploy 🚀
-        uses: emmasax4/github-pages-deploy-action@main
+        uses: emmahsax/github-pages-deploy-action@main
         with:
           access_token: ${{ secrets.ACCESS_TOKEN }}
           branch: gh-pages
@@ -315,7 +315,7 @@ If you use a [container](https://help.github.com/en/actions/automating-your-work
     apt-get update && apt-get install -y rsync
 
 - name: Deploy 🚀
-  uses: emmasax4/github-pages-deploy-action@main
+  uses: emmahsax/github-pages-deploy-action@main
 ```
 
 ---

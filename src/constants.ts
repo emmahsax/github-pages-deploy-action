@@ -4,7 +4,7 @@ import {isNullOrUndefined} from './util'
 
 const {pusher, repository} = github.context.payload
 
-/* For more information please refer to the README: https://github.com/emmasax4/github-pages-deploy-action */
+/* For more information please refer to the README: https://github.com/emmahsax/github-pages-deploy-action */
 export interface ActionInterface {
   /** Deployment access token. */
   accessToken?: string | null

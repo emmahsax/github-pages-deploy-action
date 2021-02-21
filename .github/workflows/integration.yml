@@ -15,7 +15,7 @@ jobs:
         fetch-depth: 0
 
     - name: Build and Deploy
-      uses: emmasax4/github-pages-deploy-action@main
+      uses: emmahsax/github-pages-deploy-action@main
       with:
         access_token: ${{ secrets.DEPLOY_ACCESS_TOKEN }}
         branch: gh-pages-test-branch
@@ -41,7 +41,7 @@ jobs:
         persist-credentials: false
 
     - name: Build and Deploy
-      uses: emmasax4/github-pages-deploy-action@main
+      uses: emmahsax/github-pages-deploy-action@main
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: gh-pages-test-branch
@@ -65,7 +65,7 @@ jobs:
         fetch-depth: 0
 
     - name: Build and Deploy
-      uses: emmasax4/github-pages-deploy-action@main
+      uses: emmahsax/github-pages-deploy-action@main
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: gh-pages-test-branch
@@ -97,7 +97,7 @@ jobs:
         apt-get update && apt-get install -y rsync
 
     - name: Build and Deploy
-      uses: emmasax4/github-pages-deploy-action@main
+      uses: emmahsax/github-pages-deploy-action@main
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: gh-pages-test-branch
@@ -126,7 +126,7 @@ jobs:
         ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY_PRIVATE }}
 
     - name: Build and Deploy
-      uses: emmasax4/github-pages-deploy-action@main
+      uses: emmahsax/github-pages-deploy-action@main
       with:
         ssh: true
         branch: gh-pages-test-branch
@@ -159,7 +159,7 @@ jobs:
         ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY_PRIVATE }}
 
     - name: Build and Deploy
-      uses: emmasax4/github-pages-deploy-action@main
+      uses: emmahsax/github-pages-deploy-action@main
       with:
         ssh: true
         branch: gh-pages-test-branch
@@ -183,7 +183,7 @@ jobs:
         persist-credentials: false
 
     - name: Build and Deploy
-      uses: emmasax4/github-pages-deploy-action@main
+      uses: emmahsax/github-pages-deploy-action@main
       with:
         access_token: ${{ secrets.DEPLOY_ACCESS_TOKEN }}
         branch: gh-pages-test-branch
@@ -207,7 +207,7 @@ jobs:
         persist-credentials: false
 
     - name: Build and Deploy
-      uses: emmasax4/github-pages-deploy-action@main
+      uses: emmahsax/github-pages-deploy-action@main
       with:
         access_token: ${{ secrets.DEPLOY_ACCESS_TOKEN }}
         branch: gh-pages-test-branch
