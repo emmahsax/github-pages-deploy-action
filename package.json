@@ -39,7 +39,7 @@
     "@actions/io": "1.0.2"
   },
   "devDependencies": {
-    "@types/jest": "26.0.19",
+    "@types/jest": "26.0.20",
     "@types/node": "14.14.20",
     "@vercel/ncc": "^0.26.2",
     "eslint": "7.17.0",
